@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {io} from 'socket.io-client';
 
-const socket = io("ws://localhost:8080");
+const socket = io("https://cocktailchatbotrehost.azurewebsites.net");
 socket.on('connect', () => {
     console.log('Connected to the socket');
 });

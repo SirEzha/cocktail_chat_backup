@@ -31,6 +31,10 @@ class LanguageModel {
         this.showRecipe = false
     }
 
+
+    /**
+     * Splits the input into words and finds keywords of different groups in these words.
+     */
     checkForKeywords(inputString) {
         let isQuestionFound = true;
 
@@ -73,6 +77,9 @@ class LanguageModel {
     }
 
 
+    /**
+     * Checks if current answer should be overridden by showing recipe
+     */
     shouldShowRecipe(words) {
         if (this.showRecipe === true && (words.includes('yes') || words.includes('sure'))) {
             this.showRecipe = true
@@ -319,6 +326,7 @@ class LanguageModel {
         return answer
     }
 
+
     getAnswer(userInput) {
         let response = ''
 
@@ -354,6 +362,9 @@ class LanguageModel {
     }
 
 
+    /**
+     * Spots last cocktail, which user talked with bot about
+     */
     findLastCocktail(outputString) {
         const {words, doubleWords} = this.splitIntoWords(outputString)
         let names = this.spotNames(words, doubleWords)
@@ -368,10 +379,8 @@ if (require.main === module) {
     const model = new LanguageModel();
 
     let input = 'hi hello greetings';
-    let input2 = 'sure';
 
     console.log(model.getAnswer(input));
-    console.log(model.getAnswer(input2));
 }
 
 module.exports = LanguageModel;
