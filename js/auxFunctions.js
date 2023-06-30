@@ -1,4 +1,12 @@
 exports.completeAnswer = function(namesList, cocktailIngredientList, cocktailRecipes, questionType, names) {
+    /**
+     * Error codes disambiguation:
+     * -1: no error
+     * 1: no cocktail was specified
+     * 2: no ingredients were specified
+     * 10: no cocktail was found
+     * 99: more cocktails than required were specified
+     */
     let values
 
     if (questionType === 'Suggest a cocktail') {
@@ -30,18 +38,21 @@ exports.completeAnswer = function(namesList, cocktailIngredientList, cocktailRec
 
 
 function suggestCocktail(namesList) {
-    let answer = ''
+    let answer
     let error = -1
+    let showRecipe = true
 
     answer = namesList[Math.floor(Math.random() * namesList.length)]
+    answer += '. Do you want me to show the recipe for it?'
 
-    return {answer, error}
+    return {answer, error, showRecipe}
 }
 
 
 function getIngredients(cocktailList, cocktailIngredientList, names) {
     let answer = ''
-    let error = -1  // -1 means no error, 1 means 'no cocktail was specified', 99 means 'more than 1 cocktail was specified'
+    let error = -1
+    let showRecipe = true
 
     // find cocktail name in the list of all names
     let foundCocktails = []
@@ -59,16 +70,19 @@ function getIngredients(cocktailList, cocktailIngredientList, names) {
             answer += ingredient + ', '
         }
         answer = answer.slice(0, -2)
-        answer += '.'
+        answer += '. '
+        answer += 'Do you want me to show the recipe for it?'
     }
 
-    return {answer, error}
+    return {answer, error, showRecipe}
 }
 
 
 function getCocktailsWithIngredients(namesList, cocktailIngredientList, names) {
     let answer = ''
-    let error = -1  // -1 no error, 2 no ingredients were specified, 10 no cocktail was found
+    let error = -1
+    let showRecipe = true
+
     // parsing the names to find ingredients
     let foundIngredients = []
     let foundCocktails = []
@@ -96,7 +110,8 @@ function getCocktailsWithIngredients(namesList, cocktailIngredientList, names) {
                 answer += foundCocktails[i] + ', '
             }
             answer = answer.slice(0, -2)
-            answer += '.'
+            answer += '. '
+            answer += 'Do you want me to show the recipe for the first?'
         } else {
             error = 10
         }
@@ -104,13 +119,14 @@ function getCocktailsWithIngredients(namesList, cocktailIngredientList, names) {
         error = 2
     }
 
-    return {answer, error}
+    return {answer, error, showRecipe}
 }
 
 
 function getCocktailsWithoutIngredients(namesList, cocktailIngredientList, names) {
     let answer = ''
-    let error = -1  // -1 no error, 2 no ingredients were specified, 10 no cocktail was found
+    let error = -1
+    let showRecipe = true
 
     // parsing the names to find ingredients
     let foundIngredients = []
@@ -147,7 +163,8 @@ function getCocktailsWithoutIngredients(namesList, cocktailIngredientList, names
                 answer += foundCocktails[i] + ', '
             }
             answer = answer.slice(0, -2)
-            answer += '.'
+            answer += '. '
+            answer += 'Do you want me to show the recipe for the first?'
         } else {
             error = 10
         }
@@ -155,13 +172,14 @@ function getCocktailsWithoutIngredients(namesList, cocktailIngredientList, names
         error = 2
     }
 
-    return {answer, error}
+    return {answer, error, showRecipe}
 }
 
 
 function getRecipes(cocktailList, cocktailRecipes, names) {
     let answer = ''
-    let error = -1  // -1 means no error, 1 means 'no cocktail was specified', 99 means 'more than 1 cocktail was specified'
+    let error = -1
+    let showRecipe = false
 
     // find cocktail name in the list of all names
     let foundCocktails = []
@@ -180,16 +198,17 @@ function getRecipes(cocktailList, cocktailRecipes, names) {
         }
     }
 
-    return {answer, error}
+    return {answer, error, showRecipe}
 }
 
 
 function getHelp() {
     let error = -1
+    let showRecipe = false
 
     let answer = 'I can do several things: \n1) Suggest a cocktail. \n2) Tell, which cocktails contain'
     answer += 'specified ingredients. \n3) Tell which cocktails don\'t contain specified ingredients. \n'
     answer += '4) List ingredients for the specified cocktail. \n5) Give a recipe for the specified cocktail.'
 
-    return {answer, error}
+    return {answer, error, showRecipe}
 }

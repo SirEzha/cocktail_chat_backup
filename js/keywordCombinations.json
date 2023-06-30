@@ -6,12 +6,12 @@
   ],
   "List the cocktails containing specified ingredients": [
     {"type": "required", "keywords": ["with", "containing", "contains"]},
-    {"type": "additional", "keywords": ["ingredients", "suggest", "list", "recommend"]},
+    {"type": "additional", "keywords": ["ingredients", "suggest", "list", "recommend", "give"]},
     {"type": "answers", "keywords": ["Sure! Here is the list of all the cocktails containing specified ingredients: "]}
   ],
   "List the cocktails without specified ingredients": [
     {"type": "required", "keywords": ["without", "not containing", "with no", "not contains"]},
-    {"type": "additional", "keywords": ["ingredients", "suggest", "list", "recommend"]},
+    {"type": "additional", "keywords": ["ingredients", "suggest", "list", "recommend", "give"]},
     {"type": "answers", "keywords": ["Sure! Here is the list of all the cocktails not containing specified ingredients: "]}
   ],
   "List the ingredients for the specified cocktail": [

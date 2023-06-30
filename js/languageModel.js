@@ -1,9 +1,12 @@
-/*
-This code is utter horror, I do not understand what is going on myself anymore
-
-TODO list:
-1. Expand the database
-4. add last cocktail to the memory
+/**
+ * Class 'LanguageModel' manages converting user input to an output string.
+ * Usage: create an instance of the class, and call method 'getAnswer(input)', where input - user input.
+ *
+ * Description:
+ * The model works based on keyword spotting, so the functionality is limited strictly to predefined conversation topics.
+ * The model tackles the problem of not understanding the user fully, providing with an option to choose correct answer.
+ * The model remembers last discussed cocktail, therefore it is not required to specify the name in the following inquiry.
+ * If more than one cocktail was specified during the last inquiry, model will remember first
  */
 
 const { getNames } = require('./getLists.js');
@@ -24,21 +27,41 @@ class LanguageModel {
         this.lastCocktail = ''
         this.lastAmbiguity = []
         this.lastNames = []
+        this.delimiters = /[ ,.;!:?]/;  // possible delimiters in the sentence
+        this.showRecipe = false
     }
 
     checkForKeywords(inputString) {
+        let isQuestionFound = true;
 
-        const delimiters = /[ ,.;!:?]/;  // possible delimiters in the sentence
+        const {words, doubleWords} = this.splitIntoWords(inputString)  // doubleWords - sequences of two words, made for improved keyword spotting
 
-        let keywordsSpecificSpotted = [];
-        let keywordsCommonSpotted = [];
-        let keywordsSupplementarySpotted = [];
-        let namesSpotted = [];
-        let generalKeywordCount = 0;  // helps find non-clear inquires
-        let isQuestionFound = true
+        this.shouldShowRecipe(words)
 
+        let keywordsSpecificSpotted = this.spotKeywordSpecific(words, doubleWords)
+        let {keywordsCommonSpotted, generalKeywordCount} = this.spotKeywordsCommon(words, doubleWords)
+
+        let namesSpotted = this.spotNames(words, doubleWords)
+        let ingredientsSpotted = this.spotIngredients(words, doubleWords)
+
+        if (namesSpotted.length === 0) {  // using context to define what cocktail is user talking about
+            namesSpotted.push(this.lastCocktail)
+        }
+
+        namesSpotted = namesSpotted.concat(ingredientsSpotted)
+
+        // question not found
+        if (generalKeywordCount !== words.length && keywordsSpecificSpotted.length === 0) {
+            isQuestionFound = false
+        }
+
+        return {keywordsCommonSpotted, keywordsSpecificSpotted, namesSpotted, isQuestionFound}
+    }
+
+
+    splitIntoWords(inputString) {
         inputString = inputString.toLowerCase();
-        let words = inputString.split(delimiters);
+        let words = inputString.split(this.delimiters);
         let doubleWords = []
 
         // filling the double words array
@@ -46,9 +69,23 @@ class LanguageModel {
             doubleWords.push(words[i] + ' ' + words[i + 1])
         }
 
-        // spotting specific keywords
+        return {words, doubleWords}
+    }
+
+
+    shouldShowRecipe(words) {
+        if (this.showRecipe === true && (words.includes('yes') || words.includes('sure'))) {
+            this.showRecipe = true
+        } else {
+            this.showRecipe = false
+        }
+    }
+
+    spotKeywordSpecific(words, doubleWords) {
         // we change the method of spotting keywords for specific keywords since double and single keywords overlap
         let keywordsWords = []
+        let keywordsSpecificSpotted = []
+
         for (const keyword of this.keywordList['keywordsSpecific']) {  // helps to iterate over keywords
             keywordsWords.push(keyword['keyword'])
         }
@@ -67,25 +104,14 @@ class LanguageModel {
             keywordsSpecificSpotted.push(words[words.length - 1]);
         }
 
-        // spotting names
-        for (const cocktailName of this.namesList['Names']) {
-            if (words.includes(cocktailName.toLowerCase())) {
-                namesSpotted.push(cocktailName);
-            }
-            if (doubleWords.includes(cocktailName.toLowerCase())) {
-                namesSpotted.push(cocktailName)
-            }
-        }
-        for (const ingredientName of this.namesList['Ingredients']) {
-            if (words.includes(ingredientName.toLowerCase())) {
-                namesSpotted.push(ingredientName);
-            }
-            if (doubleWords.includes(ingredientName.toLowerCase())) {
-                namesSpotted.push(ingredientName)
-            }
-        }
+        return keywordsSpecificSpotted
+    }
 
-        // spotting common keywords
+
+    spotKeywordsCommon(words, doubleWords) {
+        let generalKeywordCount = 0;  // helps find misunderstood inquires
+        let keywordsCommonSpotted = [];
+
         for (const keyword of this.keywordList['keywordsCommon']) {
             if (words.includes(keyword['keyword'])) {
                 if (!keywordsCommonSpotted.includes(keyword['keyword'])) {
@@ -103,22 +129,52 @@ class LanguageModel {
             }
         }
 
-        // question not found
-        if (generalKeywordCount !== words.length && keywordsSpecificSpotted.length === 0) {
-            isQuestionFound = false
+        return {keywordsCommonSpotted, generalKeywordCount}
+    }
+
+    spotNames(words, doubleWords) {
+        let namesSpotted = []
+
+        for (const cocktailName of this.namesList['Names']) {
+            if (words.includes(cocktailName.toLowerCase())) {
+                namesSpotted.push(cocktailName);
+            }
+            if (doubleWords.includes(cocktailName.toLowerCase())) {
+                namesSpotted.push(cocktailName)
+            }
         }
 
-        return {keywordsCommonSpotted, keywordsSpecificSpotted, namesSpotted, isQuestionFound}
+        return namesSpotted
+    }
+
+    spotIngredients(words, doubleWords) {
+        let namesSpotted = []
+
+        for (const ingredientName of this.namesList['Ingredients']) {
+            if (words.includes(ingredientName.toLowerCase())) {
+                namesSpotted.push(ingredientName);
+            }
+            if (doubleWords.includes(ingredientName.toLowerCase())) {
+                namesSpotted.push(ingredientName)
+            }
+        }
+
+        return namesSpotted
     }
 
     constructAnswer(keywordsCommonSpotted, keywordsSpecificSpotted, namesSpotted) {
         let answer = ''
 
-        let answerListSpecific = this.findQuestions(keywordsSpecificSpotted)
-        let additionalKeywordCount = this.countAdditionalKeywords(answerListSpecific, keywordsSpecificSpotted)
-        let {ambiguousAnswers, chosenIndex} = this.isQuestionAmbiguous(answerListSpecific, additionalKeywordCount)
-        answer = this.printAnswer(ambiguousAnswers, namesSpotted, answerListSpecific, answer, chosenIndex)
-        answer = this.addGeneralAnswers(keywordsCommonSpotted, answer)
+        if (this.showRecipe === false) {
+            let answerListSpecific = this.findQuestions(keywordsSpecificSpotted)
+            let additionalKeywordCount = this.countAdditionalKeywords(answerListSpecific, keywordsSpecificSpotted)
+            let {ambiguousAnswers, chosenIndex} = this.isQuestionAmbiguous(answerListSpecific, additionalKeywordCount)
+            answer = this.printAnswer(ambiguousAnswers, namesSpotted, answerListSpecific, answer, chosenIndex)
+            answer = this.addGeneralAnswers(keywordsCommonSpotted, answer)
+        } else {
+            let recipeQuestion = ['Give the recipe for the specified cocktail']
+            answer = this.answerQuestion(recipeQuestion, namesSpotted, 0)
+        }
 
         return answer
     }
@@ -130,7 +186,7 @@ class LanguageModel {
 
         // defining possible questions by parsing words for keywords
         for (let i = 0; i < keywordsCombinationsIndexes.length; i++) {
-            let keywordsRequired = this.keywordsCombinations[keywordsCombinationsIndexes[i]].filter(({ type, keyword }) => type === 'required')[0]['keywords']
+            let keywordsRequired = this.keywordsCombinations[keywordsCombinationsIndexes[i]].filter(({ type }) => type === 'required')[0]['keywords']
             keywordsRequired.forEach(requiredKeyword => keywordsSpecificSpotted.includes(requiredKeyword) && answerListSpecific.push(keywordsCombinationsIndexes[i]))
         }
 
@@ -188,7 +244,7 @@ class LanguageModel {
         if (ambiguousAnswers.length > 1) {
             answer = 'Sorry, I didn\'t understand your inquiry completely.\n'
             for (let i = 0; i < ambiguousAnswers.length; i++) {
-                answer += i+1 + ') ' + ambiguousAnswers[i] + '\n'
+                answer += i+1 + ') ' + ambiguousAnswers[i] + '. ' + '\n'
             }
             answer += 'Please, respond with a number, containing your question, if it is present or with any other '
             answer += 'response if it is not.'
@@ -205,14 +261,17 @@ class LanguageModel {
 
 
     addGeneralAnswers(keywordsCommonSpotted, answer) {
+        let thanksArray = ['thank you', 'thanks', 'appreciated']
+        let goodbyeArray = ['goodbye', 'good bye', 'bye', 'see you']
+        let helloArray = ['hello', 'hi', 'greetings', 'hey', 'good day']
         let answerListCommon
         for (const spottedCommon of keywordsCommonSpotted) {
             for (const { keyword, responses } of this.keywordList['keywordsCommon']) {
-                if (keyword === spottedCommon && (keyword === 'thank you' || keyword === 'thanks' || keyword === 'appreciated')) {
+                if (keyword === spottedCommon && (thanksArray.includes(keyword))) {
                     answerListCommon = responses;
                     answer = answerListCommon[Math.floor(Math.random() * answerListCommon.length)] + ' ' + answer;
                 }
-                if (keyword === spottedCommon && (keyword === 'goodbye' || keyword === 'good bye' || keyword === 'bye' || keyword === 'see you')) {
+                if (keyword === spottedCommon && (goodbyeArray.includes(keyword))) {
                     answerListCommon = responses;
                     answer = answer + ' ' + answerListCommon[Math.floor(Math.random() * answerListCommon.length)];
                 }
@@ -221,7 +280,7 @@ class LanguageModel {
         }
         for (const spottedCommon of keywordsCommonSpotted) {
             for (const { keyword, responses } of this.keywordList['keywordsCommon']) {
-                if (keyword === spottedCommon && (keyword === 'hello' || keyword === 'hi' || keyword === 'greetings' || keyword === 'hey' || keyword === 'good day')) {
+                if (keyword === spottedCommon && (helloArray.includes(keyword))) {
                     answerListCommon = responses;
                     answer = answerListCommon[Math.floor(Math.random() * answerListCommon.length)] + ' ' + answer;
                 }
@@ -238,6 +297,7 @@ class LanguageModel {
         let values = completeAnswer(this.namesList, this.cocktailIngredientList, this.cocktailRecipes, answerListSpecific[chosenIndex], namesSpotted)
         const returnedString = values['answer']
         const errorCode = values['error']
+        this.showRecipe = values['showRecipe']
 
         if (errorCode === -1) {
             answer = this.keywordsCombinations[answerListSpecific[chosenIndex]][2]['keywords']
@@ -266,7 +326,7 @@ class LanguageModel {
             const values = this.checkForKeywords(userInput.toLowerCase())  // finding all the keywords
             const {keywordsCommonSpotted, keywordsSpecificSpotted, namesSpotted, isQuestionFound} = values  // unpacking
 
-            if (isQuestionFound === true) {
+            if (isQuestionFound === true || this.showRecipe === true) {
                 response = this.constructAnswer(keywordsCommonSpotted, keywordsSpecificSpotted, namesSpotted)
             } else {
                 response = 'Sorry, I didn\'t understand the question'
@@ -287,7 +347,19 @@ class LanguageModel {
             }
         }
 
+        this.findLastCocktail(userInput)
+        this.findLastCocktail(response)
+
         return response
+    }
+
+
+    findLastCocktail(outputString) {
+        const {words, doubleWords} = this.splitIntoWords(outputString)
+        let names = this.spotNames(words, doubleWords)
+        if (names.length !== 0) {
+            this.lastCocktail = names[0]
+        }
     }
 }
 
@@ -295,8 +367,8 @@ class LanguageModel {
 if (require.main === module) {
     const model = new LanguageModel();
 
-    let input = 'give me a recipe for old fashioned';
-    let input2 = '2'
+    let input = 'hi hello greetings';
+    let input2 = 'sure';
 
     console.log(model.getAnswer(input));
     console.log(model.getAnswer(input2));
@@ -304,4 +376,3 @@ if (require.main === module) {
 
 module.exports = LanguageModel;
 // export default LanguageModel;
-
