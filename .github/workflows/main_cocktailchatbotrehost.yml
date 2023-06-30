@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'cocktailchatbotrehost'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A6E0307143CD4F8097BC15C6A5A5F15A }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_746E8CD83B9C48B593B6C1BAF421FDF0 }}
           package: .
