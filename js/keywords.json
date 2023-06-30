@@ -1,0 +1,33 @@
+{
+  "keywordsCommon": [
+  { "keyword": "hello", "responses": ["Hello!", "Hi there!", "Greetings!"] },
+    { "keyword": "hey", "responses": ["Hello!", "Hi there!", "Greetings!"] },
+    { "keyword": "hi", "responses": ["Hello!", "Hi there!", "Greetings!"] },
+    { "keyword": "greetings", "responses": ["Hello!", "Hi there!", "Greetings!"] },
+    { "keyword": "good day", "responses": ["Hello!", "Hi there!", "Greetings!"] },
+  { "keyword": "goodbye", "responses": ["Goodbye! Have a nice day!", "Farewell!", "Take care!"] },
+    { "keyword": "bye", "responses": ["Goodbye! Have a nice day!", "Farewell!", "Take care!"] },
+    { "keyword": "see you", "responses": ["Goodbye! Have a nice day!", "Farewell!", "Take care!"] },
+    { "keyword": "good bye", "responses": ["Goodbye! Have a nice day!", "Farewell!", "Take care!"] },
+  { "keyword": "thank you", "responses": ["You're welcome!", "No problem!", "Glad to help!"] },
+    { "keyword": "thanks", "responses": ["You're welcome!", "No problem!", "Glad to help!"] },
+    { "keyword": "appreciated", "responses": ["You're welcome!", "No problem!", "Glad to help!"] }
+  ],
+  "keywordsSpecific": [
+    { "keyword": "ingredients", "responses": [""]},
+    { "keyword": "recipe", "responses": [""]},
+    { "keyword": "list", "responses": [""] },
+    { "keyword": "suggest", "responses": [""] },
+    { "keyword": "containing", "responses": [""] },
+    { "keyword": "not containing", "responses": [""] },
+    { "keyword": "without", "responses": [""] },
+    { "keyword": "with no", "responses": [""] },
+    { "keyword": "with", "responses": [""] },
+    { "keyword": "random", "responses": [""] },
+    { "keyword": "help", "responses": [""] },
+    { "keyword": "give", "responses": [""] },
+    { "keyword": "recommend", "responses": [""] },
+    { "keyword": "contains", "responses": [""] },
+    { "keyword": "not contains", "responses": [""] }
+  ]
+}

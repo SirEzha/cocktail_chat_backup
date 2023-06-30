@@ -1,0 +1,99 @@
+{
+  "Mojito": {
+    "Recipe": [
+      "In a glass, muddle 8-10 fresh mint leaves and 1 tbsp sugar together.",
+      "Add 1 oz lime juice and stir until the sugar dissolves.",
+      "Fill the glass with ice.",
+      "Pour in 2 oz white rum and 2 oz soda water.",
+      "Stir well and garnish with a sprig of mint leaves."
+    ]
+  },
+  "Margarita": {
+    "Recipe": [
+      "Rim the glass with salt by running a lime wedge along the rim and dipping it in salt.",
+      "In a shaker, combine 2 oz tequila, 1 oz lime juice, and 1 oz triple sec with ice.",
+      "Shake well and strain into the prepared glass filled with ice.",
+      "Garnish with a lime wheel or wedge."
+    ]
+  },
+  "Martini": {
+    "Recipe": [
+      "Fill a mixing glass or shaker with ice.",
+      "Add 2 oz gin and 1/2 oz dry vermouth.",
+      "Stir or shake until well-chilled.",
+      "Strain into a chilled martini glass.",
+      "Garnish with an olive on a cocktail pick."
+    ]
+  },
+  "Old Fashioned": {
+    "Recipe": [
+      "In an Old Fashioned glass, muddle 1 tsp sugar, 2 dashes bitters, and a splash of soda water.",
+      "Add 2 oz whiskey and stir until the sugar dissolves.",
+      "Fill the glass with ice.",
+      "Gently stir for about 30 seconds.",
+      "Express the oils from an orange peel over the glass and garnish with a cherry."
+    ]
+  },
+  "Cosmopolitan": {
+    "Recipe": [
+      "Fill a shaker with ice.",
+      "Add 1 1/2 oz vodka, 1 oz cranberry juice, 1/2 oz triple sec, and 1/2 oz lime juice.",
+      "Shake well until chilled.",
+      "Strain into a martini glass.",
+      "Garnish with a few cranberries on a cocktail pick."
+    ]
+  },
+  "Daiquiri": {
+    "Recipe": [
+      "Fill a shaker with ice.",
+      "Add 2 oz rum, 1 oz lime juice, and 3/4 oz simple syrup.",
+      "Shake well until chilled.",
+      "Strain into a chilled cocktail glass.",
+      "Optionally, garnish with a lime wheel."
+    ]
+  },
+  "Pina Colada": {
+    "Recipe": [
+      "Fill a blender with ice.",
+      "Add 2 oz rum, 3 oz pineapple juice, and 2 oz coconut cream.",
+      "Blend until smooth.",
+      "Pour into a tall glass.",
+      "Garnish with a pineapple wedge or cherry, if desired."
+    ]
+  },
+  "Negroni": {
+    "Recipe": [
+      "Fill a mixing glass or shaker with ice.",
+      "Add 1 oz gin, 1 oz Campari, and 1 oz sweet vermouth.",
+      "Stir or shake until well-chilled.",
+      "Strain into an glass over ice.",
+      "Garnish with an orange twist."
+    ]
+  },
+  "Espresso Martini": {
+    "Recipe": [
+      "Fill a shaker with ice.",
+      "Add 1 1/2 oz vodka, 1 oz coffee liqueur, 1 oz espresso, and 1/2 oz simple syrup.",
+      "Shake vigorously until well-chilled.",
+      "Strain into a chilled martini glass.",
+      "Optionally, garnish with coffee beans on top."
+    ]
+  },
+  "Moscow Mule": {
+    "Recipe": [
+      "Fill a copper mug or highball glass with ice.",
+      "Add 2 oz vodka and 4-6 oz ginger beer.",
+      "Squeeze in 1/2 oz lime juice.",
+      "Stir gently to combine.",
+      "Garnish with a lime wheel or wedge."
+    ]
+  },
+  "Bloody Mary": {
+    "Recipe": [
+      "In a glass, combine 1 1/2 oz vodka, 3 oz tomato juice, 1/2 oz Worcestershire sauce, and 2-3 dashes hot sauce.",
+      "Add spices according to your preference (e.g., celery salt, black pepper, paprika).",
+      "Stir well to mix all ingredients.",
+      "Garnish with a celery stalk and a lemon wedge."
+    ]
+  }
+}

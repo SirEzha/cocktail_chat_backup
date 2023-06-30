@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body
+{
+    font-family: 'Montserrat', sans-serif;
+    
+}
+
+.header
+{
+    background-color: rgb(109, 0, 148);
+}
+.header .container-fluid .row img
+{
+    height: 80px;
+    width: auto;
+}
+.header .container-fluid .row h1
+{
+    font-size: 45;
+    color: rgb(12, 255, 206);
+    margin: 0;
+}
+.header .container-fluid .row h2
+{
+    font-size: 30;
+    color: rgb(12, 255, 206);
+}
+.about-button
+{
+    border-radius: 20px;
+    background-color: rgb(244, 47, 143);
+    color: white;
+    text-decoration: none;
+    font-size: larger;
+    padding: 6px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border: none;
+    transition: box-shadow 1s;
+}
+
+.chat-body
+{
+    height: 900px;
+    width: auto;
+    padding: 15%;
+    padding-top: 5%;
+    background: linear-gradient(135deg ,#e30df7, #5737f8 );
+}
+.chat-window
+{
+    background-color: white;
+    border-radius: 20px;
+    height: 70vh;
+}
+.card-body
+{
+    overflow-y: scroll;
+}
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #e84118;
+    padding: 2px;
+    flex: none;
+}
+
+input:focus {
+    outline: 0px !important;
+    box-shadow: none !important;
+}
+
+.card-text {
+    border: 2px solid #ddd;
+    border-radius: 8px;
+}
+
+.bot-message
+{
+    color:white;
+    background-color: rgb(2, 232, 51);
+    border-style: none;
+}
+.user-message
+{
+    color:white;
+    background-color: rgb(0, 132, 255);
+    border-style: none;
+}
+.card-footer
+{
+    border-radius:30px
+}
+
+.send-message-btn
+{
+    border: none;
+    background-color: rgb(2, 232, 51);
+    color: white;
+}
+.info-body
+{
+    padding-top: 5%;
+    background: linear-gradient(135deg ,#e30df7, #5737f8 );
+    height:100vh
+}
+.info-box
+{
+    background-color: black;
+    color: aliceblue;
+    font-size: 20px;
+}
+.upper-box
+{
+    height: 60%;
+    margin-bottom: 0;
+}
+.info-box i
+{
+    font-size: 30px;
+}
+.info-box ul
+{
+    margin-top: 30px;
+}
+.creators-box
+{
+    background: linear-gradient(180deg ,#f70d38, #fe599e );
+    font-family: 'Montserrat', sans-serif;
+}
+
+.creators-box p
+{
+    font-size: 18px;
+}

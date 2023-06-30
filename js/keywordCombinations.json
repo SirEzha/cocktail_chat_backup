@@ -1,0 +1,32 @@
+{
+ "Suggest a cocktail": [
+    {"type": "required", "keywords": ["suggest", "give", "recommend"]},
+    {"type": "additional", "keywords": ["random"]},
+   {"type": "answers", "keywords": ["Sure! Here is a good cocktail for you! "]}
+  ],
+  "List the cocktails containing specified ingredients": [
+    {"type": "required", "keywords": ["with", "containing", "contains"]},
+    {"type": "additional", "keywords": ["ingredients", "suggest", "list", "recommend"]},
+    {"type": "answers", "keywords": ["Sure! Here is the list of all the cocktails containing specified ingredients: "]}
+  ],
+  "List the cocktails without specified ingredients": [
+    {"type": "required", "keywords": ["without", "not containing", "with no", "not contains"]},
+    {"type": "additional", "keywords": ["ingredients", "suggest", "list", "recommend"]},
+    {"type": "answers", "keywords": ["Sure! Here is the list of all the cocktails not containing specified ingredients: "]}
+  ],
+  "List the ingredients for the specified cocktail": [
+    {"type": "required", "keywords": ["ingredients"]},
+    {"type": "additional", "keywords": ["suggest", "list", "recommend", "give"]},
+    {"type": "answers", "keywords": ["Certainly! Here are the ingredients for the desired cocktail: "]}
+  ],
+  "Give the recipe for the specified cocktail": [
+    {"type": "required", "keywords": ["recipe"]},
+    {"type": "additional", "keywords": ["suggest", "list", "recommend", "give"]},
+    {"type": "answers", "keywords": ["Certainly! Here is the recipe for the desired cocktail: "]}
+  ],
+  "Help": [
+    {"type": "required", "keywords": ["help"]},
+    {"type": "additional", "keywords": ["help"]},
+    {"type": "answers", "keywords": [""]}
+  ]
+}

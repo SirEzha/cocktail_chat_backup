@@ -1,0 +1,93 @@
+{
+  "Mojito": {
+    "Ingredients": [
+      "White rum",
+      "Sugar",
+      "Lime juice",
+      "Soda water",
+      "Mint leaves"
+    ]
+  },
+  "Margarita": {
+    "Ingredients": [
+      "Tequila",
+      "Lime juice",
+      "Triple sec",
+      "Salt"
+    ]
+  },
+  "Martini": {
+    "Ingredients": [
+      "Gin",
+      "Dry vermouth",
+      "Olive"
+    ]
+  },
+  "Old Fashioned": {
+    "Ingredients": [
+      "Whiskey",
+      "Sugar",
+      "Bitters",
+      "Soda water",
+      "Orange peel",
+      "Cherry"
+    ]
+  },
+  "Cosmopolitan": {
+    "Ingredients": [
+      "Vodka",
+      "Cranberry juice",
+      "Triple sec",
+      "Lime juice",
+      "Cranberry"
+    ]
+  },
+  "Daiquiri": {
+    "Ingredients": [
+      "Rum",
+      "Lime juice",
+      "Simple syrup"
+    ]
+  },
+  "Pina Colada": {
+    "Ingredients": [
+      "Rum",
+      "Pineapple juice",
+      "Coconut cream"
+    ]
+  },
+  "Negroni": {
+    "Ingredients": [
+      "Gin",
+      "Campari",
+      "Sweet vermouth",
+      "Orange twist"
+    ]
+  },
+  "Espresso Martini": {
+    "Ingredients": [
+      "Vodka",
+      "Coffee liqueur",
+      "Espresso",
+      "Simple syrup"
+    ]
+  },
+  "Moscow Mule": {
+    "Ingredients": [
+      "Vodka",
+      "Ginger beer",
+      "Lime juice"
+    ]
+  },
+  "Bloody Mary": {
+    "Ingredients": [
+      "Vodka",
+      "Tomato juice",
+      "Worcestershire sauce",
+      "Hot sauce",
+      "Spices",
+      "Celery",
+      "Lemon wedge"
+    ]
+  }
+}
