@@ -35,9 +35,9 @@ function Header() {
               </div>
             </div>
             <div className="col-sm-1 d-flex align-items-center justify-content-center me-5">
-              <button className="about-button btn">
+              <a className="about-button btn" href={ './about.html' }>
                 About
-              </button>
+              </a>
             </div>
           </div>
         </div>
