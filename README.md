@@ -1,7 +1,10 @@
 # Cocktail-Chat-Bot
 
-Friendly chat for small group of friends :trollgesicht: :)
+Website with chatbot based on keyword spotting.
 
-Hello world!
+Group work of 4 people
 
-![alt text](https://github.com/Sm4llpuppy/Cocktail-Chat-Bot/blob/main/photo_2023-05-26_17-58-27.jpg?raw=true)
+Stack:
+HTML + CSS
+React
+JS
